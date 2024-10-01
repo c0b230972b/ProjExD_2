@@ -32,6 +32,7 @@ def check_bound(obj_rct: pg.Rect) -> tuple[bool, bool]:
 
 def game_over(t) -> int:
     """
+    Game Over画面表示をreturnする
     引数：GameOver画面を表示する秒数
     """
     return time.sleep(t)
@@ -58,8 +59,6 @@ def main():
     #bb_img = pg.Surface((20, 20))  # 空のSurface
     #bb_img.set_colorkey((0, 0, 0))  # 爆弾の四隅を透過させる
     #pg.draw.circle(bb_img, (255, 0, 0), (10, 10), 10)
-    
-    
     vx, vy = +5, +5  # 爆弾の速度
     bb_accs, bb_imgs = expan_bb()
     bb_img = bb_imgs[min(tmr//500, 9)]
@@ -80,7 +79,6 @@ def main():
     ck_rct2.center = ((WIDTH//3)*2, HEIGHT//2)
     fonto = pg.font.Font(None, 80)
     txt = fonto.render("Game Over", True, (255, 255, 255))
-
     clock = pg.time.Clock()
     tmr = 0
     while True:
@@ -116,10 +114,7 @@ def main():
         kk_rct.move_ip(sum_mv)
         if check_bound(kk_rct) != (True, True):
             kk_rct.move_ip(-sum_mv[0], -sum_mv[1])
-
-        
         screen.blit(kk_img, kk_rct)
-
         
         yoko, tate = check_bound(bb_rct)
         if not yoko:
