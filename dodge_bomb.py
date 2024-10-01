@@ -14,6 +14,7 @@ DELTA = {
     }
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
+
 def check_bound(obj_rct: pg.Rect) -> tuple[bool, bool]:
     """
     引数：こうかとん、または、爆弾のRect
@@ -28,11 +29,13 @@ def check_bound(obj_rct: pg.Rect) -> tuple[bool, bool]:
         tate = False
     return yoko, tate
 
+
 def game_over(t) -> int:
     """
     引数：GameOver画面を表示する秒数
     """
     return time.sleep(t)
+
 
 def expan_bb():
     bb_accs = [a for a in range(1, 11)]  # 加速度のリスト
@@ -44,7 +47,6 @@ def expan_bb():
         bb_imgs.append(bb_img)
     return bb_accs, bb_imgs
 
-    
 
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
