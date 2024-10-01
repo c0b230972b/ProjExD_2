@@ -1,6 +1,7 @@
 import os
 import random
 import sys
+import time
 import pygame as pg
 
 
@@ -27,6 +28,12 @@ def check_bound(obj_rct: pg.Rect) -> tuple[bool, bool]:
         tate = False
     return yoko, tate
 
+def game_over(t) -> int:
+    """
+    引数：GameOver画面を表示する秒数
+    """
+    return time.sleep(t)
+    
 
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
@@ -41,7 +48,21 @@ def main():
     bb_rct = bb_img.get_rect()  # 爆弾Rectの抽出
     bb_rct.centerx = random.randint(0, WIDTH)
     bb_rct.centery = random.randint(0, HEIGHT)
-    vx, vy = +5, +5  #爆弾の速度
+    vx, vy = +5, +5  # 爆弾の速度
+    go_img = pg.Surface((WIDTH,HEIGHT))
+    pg.draw.rect(go_img,(0, 0, 0), (0, 0, WIDTH, HEIGHT)) #(Surface, (色), (左上のX, 左上のy, 横幅, 縦幅))
+    go_img.set_alpha(200)
+    go_rct = go_img.get_rect()
+    go_rct = 0, 0
+    ck_img = pg.image.load("fig/8.png")
+    ck_rct = ck_img.get_rect()
+    ck_rct.center = (WIDTH//3, HEIGHT//2)
+    ck_img2 = pg.image.load("fig/8.png")
+    ck_rct2 = ck_img2.get_rect()
+    ck_rct2.center = ((WIDTH//3)*2, HEIGHT//2)
+    fonto = pg.font.Font(None, 80)
+    txt = fonto.render("Game Over", True, (255, 255, 255))
+
     clock = pg.time.Clock()
     tmr = 0
     while True:
@@ -52,7 +73,12 @@ def main():
 
         if kk_rct.colliderect(bb_rct):
             # こうかとんが爆弾と重なっていたら
-            print("GameOver")
+            screen.blit(go_img, go_rct)
+            screen.blit(ck_img, ck_rct)
+            screen.blit(ck_img2, ck_rct2)
+            screen.blit(txt,[WIDTH//3 +30, HEIGHT//2 -20])
+            pg.display.flip()
+            game_over(5)
             return
 
         key_lst = pg.key.get_pressed()
