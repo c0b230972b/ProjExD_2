@@ -50,6 +50,11 @@ def main():
                 return
         screen.blit(bg_img, [0, 0]) 
 
+        if kk_rct.colliderect(bb_rct):
+            # こうかとんが爆弾と重なっていたら
+            print("GameOver")
+            return
+
         key_lst = pg.key.get_pressed()
         sum_mv = [0, 0]  # [横座標, 縦座標]
         #if key_lst[pg.K_UP]:
